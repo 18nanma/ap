@@ -3,7 +3,8 @@ import { Text, View, ScrollView, Alert, Linking,Button } from 'react-native';
 import { Header, Input, SearchBar,  } from 'react-native-elements';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 import { Spinner, ListItem, Separator } from 'native-base';
-import { Font, SQLite } from 'expo';
+import { Font } from 'expo';
+import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabase('autopower1.db')
 
@@ -20,9 +21,9 @@ export default class Add extends React.Component {
         db.transaction((tx) => {
             tx.executeSql(query, params, (tx, results) => {
                 console.log(results);
-                Alert.alert("Success", "Ha sido Guardado Correctamente");
+                Alert.alert("Success", "Room has been added!");
             }, function (tx, err) {
-                Alert.alert("Warning", "Vefique que los campos esten llenos");
+                Alert.alert("Warning", "Room has not been added");
                 return;
             });
         });
@@ -35,7 +36,7 @@ export default class Add extends React.Component {
             this.insert(room, ip);
         }
         else {
-            Alert.alert("Warning", "Vefique que los campos esten llenos");
+            Alert.alert("Warning", "Room has not been saved");
         }
     }
 

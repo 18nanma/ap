@@ -4,11 +4,12 @@ import { Header, Input, SearchBar, Button } from 'react-native-elements';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 import { Spinner, ListItem, Separator } from 'native-base';
 import IconF from 'react-native-vector-icons/FontAwesome';
-import { Font, SQLite } from 'expo';
+import { Font } from 'expo';
+import * as SQLite from 'expo-sqlite';
 const AlertMsg = 'Are you sure you want to delete this room ?';
 const AlertCancel = 'You have cancelled the deletion.';
 
-const db = SQLite.openDatabase('autopower1.db')
+var db = SQLite.openDatabase('autopower1.db')
 
 export default class Home extends React.Component {
 

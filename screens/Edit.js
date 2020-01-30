@@ -3,7 +3,8 @@ import { Text, View, ScrollView, Alert, Linking,Button } from 'react-native';
 import { Header, Input, SearchBar,  } from 'react-native-elements';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 import { Spinner, ListItem, Separator } from 'native-base';
-import { Font, SQLite } from 'expo';
+import { Font } from 'expo';
+import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabase('Milagro.db')
 
@@ -31,7 +32,7 @@ export default class Edit extends React.Component {
         }
 
       }, function (tx, err) {
-        Alert.alert("Warning", "Ha ocurrido un error en el servidor");
+        Alert.alert("Warning", "An error has occured");
       });
     });
   }
@@ -44,7 +45,7 @@ export default class Edit extends React.Component {
         console.log(results);
         Alert.alert("Success", "Datos Actualizados correctamente");
       }, function (tx, err) {
-        Alert.alert("Warning", "Vefique que los campos esten totalmente llenos por favor");
+        Alert.alert("Warning", "Room has not been updated");
         return;
       });
     });
@@ -74,13 +75,13 @@ export default class Edit extends React.Component {
                 />
                <Input
                      onChangeText={(val) => this.setState({ room: val })} value={this.state.room}
-                    placeholder='room'
+                    placeholder='Room Name'
                     leftIconContainerStyle={{ marginRight: 15 }}
                     inputContainerStyle={{ marginTop: 45, width: 330, marginLeft: 30 }}
                 />
                 <Input
                       onChangeText={(val) => this.setState({ ip: val })} value={this.state.ip}
-                    placeholder='ip'
+                    placeholder='IP Address'
                     leftIconContainerStyle={{ marginRight: 15 }}
                     inputContainerStyle={{ marginTop: 25, width: 330, marginLeft: 30 , marginBottom:20}}
                 />

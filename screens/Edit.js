@@ -55,6 +55,7 @@ export default class Edit extends React.Component {
     const { name, age, id } = this.state;
     if (name != 'Name' && age != 'Age') {
       this.update(id, name, age);
+      this.props.navigation.navigate('Home');
     } else {
       Alert.alert("Warning", "error");
     }

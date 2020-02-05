@@ -9,7 +9,7 @@ import * as SQLite from 'expo-sqlite';
 const db = SQLite.openDatabase('Milagro.db')
 
 export default class Edit extends React.Component {
-    state = {  room: '', ip: '', id: 0 };
+    state = {  name: '', age: '', id: 0 };
 
   componentDidMount() {
     const id = this.props.navigation.getParam("id");
@@ -19,15 +19,15 @@ export default class Edit extends React.Component {
   }
 
   fetch(id) {
-    var query = "SELECT * FROM tbl_ap WHERE id= ?";
+    var query = "SELECT * FROM tbl_milagros WHERE id= ?";
     var params = [id];
     db.transaction((tx) => {
       tx.executeSql(query, params, (tx, results) => {
         console.log(results);
         if (results.rows._array.length > 0) {
           this.setState({
-            room: results.rows._array[0]['room'],
-            ip: results.rows._array[0]['ip'],
+            name: results.rows._array[0]['name'],
+            age: results.rows._array[0]['age'],
           });
         }
 
@@ -37,26 +37,26 @@ export default class Edit extends React.Component {
     });
   }
 
-  update(id, room, ip) {
-    var query = "UPDATE tbl_ap SET room= ?, ip= ? WHERE id= ?";
-    var params = [room, ip, id];
+  update(id, name, age) {
+    var query = "UPDATE tbl_milagros SET name= ?, age= ? WHERE id= ?";
+    var params = [name, age, id];
     db.transaction((tx) => {
       tx.executeSql(query, params, (tx, results) => {
         console.log(results);
-        Alert.alert("Success", "Datos Actualizados correctamente");
+        Alert.alert("Success", "Data has been updated.");
       }, function (tx, err) {
-        Alert.alert("Warning", "Room has not been updated");
+        Alert.alert("Warning", "Data could not be updated.");
         return;
       });
     });
   }
 
   handleSave() {
-    const { room, ip, id } = this.state;
-    if (room != 'room' && ip != 'ip') {
-      this.update(id, room, ip);
+    const { name, age, id } = this.state;
+    if (name != 'Name' && age != 'Age') {
+      this.update(id, name, age);
     } else {
-      Alert.alert("Warning", "Todos los campos deben estar llenos para actualizar el registro");
+      Alert.alert("Warning", "error");
     }
   }
     handleBack() {
@@ -74,13 +74,13 @@ export default class Edit extends React.Component {
                     centerContainerStyle={{ marginRight: 170 }}
                 />
                <Input
-                     onChangeText={(val) => this.setState({ room: val })} value={this.state.room}
+                     onChangeText={(val) => this.setState({ name: val })} value={this.state.name}
                     placeholder='Room Name'
                     leftIconContainerStyle={{ marginRight: 15 }}
                     inputContainerStyle={{ marginTop: 45, width: 330, marginLeft: 30 }}
                 />
                 <Input
-                      onChangeText={(val) => this.setState({ ip: val })} value={this.state.ip}
+                      onChangeText={(val) => this.setState({ age: val })} value={this.state.age}
                     placeholder='IP Address'
                     leftIconContainerStyle={{ marginRight: 15 }}
                     inputContainerStyle={{ marginTop: 25, width: 330, marginLeft: 30 , marginBottom:20}}
@@ -97,3 +97,4 @@ export default class Edit extends React.Component {
         );
     }
 }
+

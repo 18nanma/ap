@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, Dimensions, StyleSheet, SafeAreaView, ScrollView, TextInput, TouchableOpacity, StatusBar} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as WebBrowser from 'expo-web-browser';
 
 const { width, height } = Dimensions.get('window');
 const h = 0.2 * height;
@@ -63,14 +64,26 @@ export default class InfoScreen extends React.Component {
                           <Text style={styles.leadDetails}>farhan@citriot.com</Text> 
                     <View style={{paddingBottom: 30}} />
 
-                    <Text style={styles.leadDetails}>https://www.citriot.com/</Text> 
+                    <View style={styles.helpContainer}>
+                        <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
+                            <Text style={styles.helpLinkText}>
+                            https://www.citriot.com/
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                     <View style={{paddingBottom: 30}} />
                 </View>
         </ScrollView>
       </SafeAreaView>
     );
-  }s
+  }
 }
+
+function handleHelpPress() {
+    WebBrowser.openBrowserAsync(
+      'https://www.citriot.com/'
+    );
+  }
 
 const styles = StyleSheet.create({
   title:{
@@ -134,6 +147,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign:'left',
-   }
+   },
+   helpLink: {
+    paddingVertical: 15,
+  },
+  helpLinkText: {
+    fontSize: 16,
+    color: '#242477',
+  },
 
 });
